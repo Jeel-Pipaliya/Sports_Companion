@@ -1,0 +1,33 @@
+{
+  "university": "Charotar University of Science and Technology (CHARUSAT)",
+  "department": "Sports & Athletic Development Cell",
+  "academicYear": "2026-27",
+  "subjectCode": "AIUE302 - Mobile Application Development",
+  "practical": "Practical 1 - Environment Setup & Foundation",
+  "athletes": [
+    {
+      "athleteId": "24SPT001",
+      "name": "Rahul Patel",
+      "sport": "Football & Athletics",
+      "division": "Senior Varsity (Sem 5)",
+      "email": "rahul.patel@charusat.edu.in",
+      "phone": "+91 98765 43210",
+      "fitnessScore": 9.4,
+      "trainingAttendance": 92.5,
+      "drills": ["Sprint Endurance", "Ball Control", "Core Stability", "Agility Ladders"],
+      "emergencyContact": "+91 98765 00000"
+    },
+    {
+      "athleteId": "24SPT002",
+      "name": "Ananya Sharma",
+      "sport": "Cricket",
+      "division": "Senior Varsity (Sem 5)",
+      "email": "ananya.sharma@charusat.edu.in",
+      "phone": "+91 98765 43211",
+      "fitnessScore": 9.1,
+      "trainingAttendance": 95.0,
+      "drills": ["Pace Bowling", "Target Fielding", "Stamina Run", "Reflex Drills"],
+      "emergencyContact": "+91 98765 00001"
+    }
+  ]
+}
