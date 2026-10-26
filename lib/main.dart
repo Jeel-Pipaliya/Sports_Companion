@@ -27,6 +27,7 @@ import 'preferences_service.dart';
 import 'practical5_navigation.dart';
 import 'practical6_database.dart';
 import 'practical7_api.dart';
+import 'practical8_ai.dart';
 
 // Export all modules so that tests and external files have full access
 export 'splash.dart';
@@ -321,6 +322,27 @@ class _SportsCompanionAppState extends State<SportsCompanionApp> {
                 onToggleTheme: _toggleTheme,
                 initialTabIndex: 3,
               ),
+            );
+          case '/practical8':
+          case '/p8/hub':
+            return MaterialPageRoute(
+              builder: (_) => const Practical8AiHubScreen(),
+            );
+          case '/p8/chat':
+            return MaterialPageRoute(
+              builder: (_) => const Practical8AiHubScreen(initialTabIndex: 0),
+            );
+          case '/p8/summarizer':
+            return MaterialPageRoute(
+              builder: (_) => const Practical8AiHubScreen(initialTabIndex: 1),
+            );
+          case '/p8/planner':
+            return MaterialPageRoute(
+              builder: (_) => const Practical8AiHubScreen(initialTabIndex: 2),
+            );
+          case '/p8/edge-benchmark':
+            return MaterialPageRoute(
+              builder: (_) => const Practical8AiHubScreen(initialTabIndex: 3),
             );
           case '/settings':
           case '/p5/settings':

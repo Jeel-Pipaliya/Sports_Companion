@@ -233,6 +233,14 @@ class AppNavigationDrawer extends StatelessWidget {
                 ),
                 _buildDrawerTile(
                   context: context,
+                  icon: Icons.smart_toy_outlined,
+                  activeIcon: Icons.smart_toy_rounded,
+                  title: 'Practical 8 Smart AI',
+                  subtitle: 'Gemini Nano & Edge AI',
+                  route: '/practical8',
+                ),
+                _buildDrawerTile(
+                  context: context,
                   icon: Icons.settings_outlined,
                   activeIcon: Icons.settings,
                   title: 'Persistent Settings',
