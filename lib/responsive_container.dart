@@ -15,6 +15,7 @@ import 'assignments.dart';
 import 'notifications.dart';
 import 'faculty.dart';
 import 'gallery.dart';
+import 'navigation_widgets.dart';
 
 // ============================================================================
 // STANDALONE DEDICATED PAGE WRAPPER (Scaffold & AppBar for Individual Work)
@@ -96,7 +97,11 @@ class _ResponsiveMainContainerState extends State<ResponsiveMainContainer> {
         ];
 
         return Scaffold(
-          drawer: _buildDrawer(context),
+          drawer: AppNavigationDrawer(
+            currentRoute: '/dashboard',
+            onToggleTheme: widget.onToggleTheme,
+            onSelectIndex: (idx) => setState(() => _currentIndex = idx),
+          ),
           appBar: AppBar(
             title: Text(
               _getPageTitle(_currentIndex),
@@ -130,14 +135,56 @@ class _ResponsiveMainContainerState extends State<ResponsiveMainContainer> {
                 },
               ),
               IconButton(
-                icon: const Icon(Icons.tune_rounded),
-                tooltip: 'Practical 4: State Management Hub',
-                onPressed: () => Navigator.pushNamed(context, '/practical4'),
-              ),
-              IconButton(
                 icon: const Icon(Icons.brightness_6),
                 tooltip: 'Toggle Theme',
                 onPressed: widget.onToggleTheme,
+              ),
+              PopupMenuButton<String>(
+                icon: const Icon(Icons.more_vert),
+                tooltip: 'Practical Hubs & Settings',
+                onSelected: (route) => Navigator.pushNamed(context, route),
+                itemBuilder: (ctx) => const [
+                  PopupMenuItem(
+                    value: '/practical5',
+                    child: Row(
+                      children: [
+                        Icon(Icons.alt_route, color: Color(0xFF0D47A1), size: 18),
+                        SizedBox(width: 8),
+                        Text('Practical 5: Navigation Hub'),
+                      ],
+                    ),
+                  ),
+                  PopupMenuItem(
+                    value: '/settings',
+                    child: Row(
+                      children: [
+                        Icon(Icons.settings, color: Colors.blueGrey, size: 18),
+                        SizedBox(width: 8),
+                        Text('Persistent Settings'),
+                      ],
+                    ),
+                  ),
+                  PopupMenuItem(
+                    value: '/profile',
+                    child: Row(
+                      children: [
+                        Icon(Icons.person, color: Colors.teal, size: 18),
+                        SizedBox(width: 8),
+                        Text('Student Profile'),
+                      ],
+                    ),
+                  ),
+                  PopupMenuItem(
+                    value: '/practical4',
+                    child: Row(
+                      children: [
+                        Icon(Icons.tune, color: Colors.indigo, size: 18),
+                        SizedBox(width: 8),
+                        Text('Practical 4: State Hub'),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
@@ -257,165 +304,5 @@ class _ResponsiveMainContainerState extends State<ResponsiveMainContainer> {
       default:
         return 'Smart Companion';
     }
-  }
-
-  Widget _buildDrawer(BuildContext context) {
-    return Drawer(
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: [
-          DrawerHeader(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: [Color(0xFF0D47A1), Color(0xFF1E88E5)],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
-            ),
-            child: const Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                CircleAvatar(
-                  radius: 28,
-                  backgroundColor: Colors.white,
-                  child: Text(
-                    'JP',
-                    style: TextStyle(
-                      color: Color(0xFF0D47A1),
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                    ),
-                  ),
-                ),
-                SizedBox(height: 10),
-                Text(
-                  'Jeel Pipaliya',
-                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
-                ),
-                Text(
-                  '24AIML051 • Semester V (MAD Practical 3)',
-                  style: TextStyle(color: Colors.white70, fontSize: 12),
-                ),
-              ],
-            ),
-          ),
-          _drawerItem(0, 'Course Dashboard', Icons.dashboard),
-          _drawerItem(1, 'Attendance Summary (CO2)', Icons.pie_chart),
-          _drawerItem(2, 'Timetable & Schedule', Icons.calendar_month),
-          _drawerItem(3, 'Assignment List', Icons.assignment),
-          _drawerItem(4, 'Notifications & Alerts', Icons.notifications),
-          _drawerItem(5, 'Faculty Information', Icons.people_alt),
-          _drawerItem(6, 'Event Gallery (GridView)', Icons.grid_view),
-          const Divider(),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-            child: Text(
-              'PRACTICAL 4: DYNAMIC STATE MANAGEMENT',
-              style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: Colors.grey),
-            ),
-          ),
-          ListTile(
-            leading: const Icon(Icons.tune_rounded, color: Color(0xFF0D47A1)),
-            title: const Text('Practical 4 Master Hub', style: TextStyle(fontWeight: FontWeight.bold)),
-            subtitle: const Text('Tabbed State Management System (CO2)', style: TextStyle(fontSize: 11)),
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.pushNamed(context, '/practical4');
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.person_pin_rounded, color: Colors.blue),
-            title: const Text('1. Profile & Semester (Dropdown)'),
-            dense: true,
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.pushNamed(context, '/p4/profile');
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.palette_rounded, color: Colors.deepPurple),
-            title: const Text('2. Theme Selection (Switch & Radio)'),
-            dense: true,
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.pushNamed(context, '/p4/theme');
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.notifications_active_rounded, color: Colors.orange),
-            title: const Text('3. Notification Channels (Checkbox)'),
-            dense: true,
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.pushNamed(context, '/p4/notifications');
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.translate_rounded, color: Colors.teal),
-            title: const Text('4. Language Selection (Radio)'),
-            dense: true,
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.pushNamed(context, '/p4/language');
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.menu_book_rounded, color: Colors.indigo),
-            title: const Text('5. Course Preferences (FilterChips)'),
-            dense: true,
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.pushNamed(context, '/p4/courses');
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.tune_rounded, color: Colors.green),
-            title: const Text('6. Dashboard Sliders & Goals'),
-            dense: true,
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.pushNamed(context, '/p4/customization');
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.code_rounded, color: Colors.blueGrey),
-            title: const Text('7. Ephemeral vs App State'),
-            dense: true,
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.pushNamed(context, '/p4/summary');
-            },
-          ),
-          const Divider(),
-          ListTile(
-            leading: const Icon(Icons.logout, color: Colors.redAccent),
-            title: const Text('Sign Out', style: TextStyle(color: Colors.redAccent)),
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.pushReplacementNamed(context, '/login');
-            },
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _drawerItem(int index, String title, IconData icon) {
-    return ListTile(
-      leading: Icon(icon, color: _currentIndex == index ? const Color(0xFF0D47A1) : null),
-      title: Text(
-        title,
-        style: TextStyle(
-          fontWeight: _currentIndex == index ? FontWeight.bold : FontWeight.normal,
-          color: _currentIndex == index ? const Color(0xFF0D47A1) : null,
-        ),
-      ),
-      selected: _currentIndex == index,
-      onTap: () {
-        setState(() => _currentIndex = index);
-        Navigator.pop(context);
-      },
-    );
   }
 }

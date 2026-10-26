@@ -23,6 +23,8 @@ import 'notifications.dart';
 import 'faculty.dart';
 import 'gallery.dart';
 import 'practical4_state_management.dart';
+import 'preferences_service.dart';
+import 'practical5_navigation.dart';
 
 // Export all modules so that tests and external files have full access
 export 'splash.dart';
@@ -37,8 +39,13 @@ export 'notifications.dart';
 export 'faculty.dart';
 export 'gallery.dart';
 export 'practical4_state_management.dart';
+export 'preferences_service.dart';
+export 'navigation_widgets.dart';
+export 'practical5_navigation.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await PreferencesService().init();
   runApp(const SportsCompanionApp());
 }
 
@@ -245,6 +252,21 @@ class _SportsCompanionAppState extends State<SportsCompanionApp> {
             return MaterialPageRoute(
               builder: (_) => StateManagementSummaryScreen(onToggleTheme: _toggleTheme),
             );
+          case '/practical5':
+          case '/p5/hub':
+            return MaterialPageRoute(
+              builder: (_) => Practical5HubScreen(onToggleTheme: _toggleTheme),
+            );
+          case '/settings':
+          case '/p5/settings':
+            return MaterialPageRoute(
+              builder: (_) => PersistentSettingsScreen(onToggleTheme: _toggleTheme),
+            );
+          case '/profile':
+          case '/p5/profile':
+            return MaterialPageRoute(
+              builder: (_) => StudentProfileScreen(onToggleTheme: _toggleTheme),
+            );
           case '/login':
             return MaterialPageRoute(
               builder: (_) => LoginScreen(onToggleTheme: _toggleTheme),
@@ -299,6 +321,12 @@ class _SportsCompanionAppState extends State<SportsCompanionApp> {
               initialIndex: 0,
               initialTablet: true,
             ),
+        '/profile': (context) => StudentProfileScreen(onToggleTheme: _toggleTheme),
+        '/settings': (context) => PersistentSettingsScreen(onToggleTheme: _toggleTheme),
+        '/practical5': (context) => Practical5HubScreen(onToggleTheme: _toggleTheme),
+        '/p5/hub': (context) => Practical5HubScreen(onToggleTheme: _toggleTheme),
+        '/p5/settings': (context) => PersistentSettingsScreen(onToggleTheme: _toggleTheme),
+        '/p5/profile': (context) => StudentProfileScreen(onToggleTheme: _toggleTheme),
         '/practical4': (context) => Practical4HubScreen(onToggleTheme: _toggleTheme),
         '/p4/profile': (context) => StudentProfileSettingsScreen(onToggleTheme: _toggleTheme),
         '/p4/theme': (context) => ThemeSettingsScreen(onToggleTheme: _toggleTheme),

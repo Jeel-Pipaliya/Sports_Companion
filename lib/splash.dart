@@ -3,16 +3,55 @@
 // FACULTY OF TECHNOLOGY AND ENGINEERING (FTE)
 // DEPARTMENT OF ARTIFICIAL INTELLIGENCE & MACHINE LEARNING
 // SUBJECT: AIUE302 - Mobile Application Development
-// WORK/MODULE: Splash Screen
+// WORK/MODULE: Splash Screen with Session Verification
 // STUDENT: Jeel Pipaliya (24AIML051)
 // ============================================================================
 
 import 'package:flutter/material.dart';
+import 'preferences_service.dart';
 
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends StatefulWidget {
   final VoidCallback onToggleTheme;
 
   const SplashScreen({super.key, required this.onToggleTheme});
+
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  final PreferencesService _prefs = PreferencesService();
+  bool _isCheckingSession = false;
+  String _statusText = 'Secure session verified';
+
+  @override
+  void initState() {
+    super.initState();
+    _isCheckingSession = !_prefs.isInitialized;
+    _verifySession();
+  }
+
+  Future<void> _verifySession() async {
+    if (!_prefs.isInitialized) {
+      await _prefs.init();
+    }
+    if (!mounted) return;
+
+    setState(() {
+      _isCheckingSession = false;
+      _statusText = _prefs.isLoggedIn
+          ? 'Session found: ${_prefs.userName}'
+          : 'Ready for authentication';
+    });
+  }
+
+  void _proceedToNext() {
+    if (_prefs.isLoggedIn) {
+      Navigator.pushReplacementNamed(context, '/dashboard');
+    } else {
+      Navigator.pushReplacementNamed(context, '/login');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,6 +115,33 @@ class SplashScreen extends StatelessWidget {
                   style: TextStyle(fontSize: 12, color: Colors.white, fontWeight: FontWeight.w600),
                 ),
               ),
+              const SizedBox(height: 12),
+
+              // Session status indicator
+              Container(
+                margin: const EdgeInsets.symmetric(horizontal: 40),
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                decoration: BoxDecoration(
+                  color: Colors.black12,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      _isCheckingSession ? Icons.sync : (_prefs.isLoggedIn ? Icons.verified : Icons.lock_open),
+                      size: 14,
+                      color: Colors.white70,
+                    ),
+                    const SizedBox(width: 6),
+                    Text(
+                      _statusText,
+                      style: const TextStyle(fontSize: 11, color: Colors.white70),
+                    ),
+                  ],
+                ),
+              ),
+
               const Spacer(),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 24),
@@ -91,9 +157,7 @@ class SplashScreen extends StatelessWidget {
                       ),
                       elevation: 4,
                     ),
-                    onPressed: () {
-                      Navigator.pushReplacementNamed(context, '/login');
-                    },
+                    onPressed: _proceedToNext,
                     child: const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
