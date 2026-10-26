@@ -217,6 +217,14 @@ class AppNavigationDrawer extends StatelessWidget {
                 ),
                 _buildDrawerTile(
                   context: context,
+                  icon: Icons.storage_outlined,
+                  activeIcon: Icons.storage_rounded,
+                  title: 'Practical 6 SQLite DB',
+                  subtitle: 'Notes & Tasks CRUD',
+                  route: '/practical6',
+                ),
+                _buildDrawerTile(
+                  context: context,
                   icon: Icons.settings_outlined,
                   activeIcon: Icons.settings,
                   title: 'Persistent Settings',

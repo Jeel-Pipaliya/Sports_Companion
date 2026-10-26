@@ -25,6 +25,7 @@ import 'gallery.dart';
 import 'practical4_state_management.dart';
 import 'preferences_service.dart';
 import 'practical5_navigation.dart';
+import 'practical6_database.dart';
 
 // Export all modules so that tests and external files have full access
 export 'splash.dart';
@@ -42,6 +43,8 @@ export 'practical4_state_management.dart';
 export 'preferences_service.dart';
 export 'navigation_widgets.dart';
 export 'practical5_navigation.dart';
+export 'database_helper.dart';
+export 'practical6_database.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -257,6 +260,32 @@ class _SportsCompanionAppState extends State<SportsCompanionApp> {
             return MaterialPageRoute(
               builder: (_) => Practical5HubScreen(onToggleTheme: _toggleTheme),
             );
+          case '/practical6':
+          case '/p6/hub':
+            return MaterialPageRoute(
+              builder: (_) => Practical6DatabaseHubScreen(onToggleTheme: _toggleTheme),
+            );
+          case '/p6/notes':
+            return MaterialPageRoute(
+              builder: (_) => Practical6DatabaseHubScreen(
+                onToggleTheme: _toggleTheme,
+                initialTabIndex: 0,
+              ),
+            );
+          case '/p6/tasks':
+            return MaterialPageRoute(
+              builder: (_) => Practical6DatabaseHubScreen(
+                onToggleTheme: _toggleTheme,
+                initialTabIndex: 1,
+              ),
+            );
+          case '/p6/stats':
+            return MaterialPageRoute(
+              builder: (_) => Practical6DatabaseHubScreen(
+                onToggleTheme: _toggleTheme,
+                initialTabIndex: 2,
+              ),
+            );
           case '/settings':
           case '/p5/settings':
             return MaterialPageRoute(
@@ -327,6 +356,11 @@ class _SportsCompanionAppState extends State<SportsCompanionApp> {
         '/p5/hub': (context) => Practical5HubScreen(onToggleTheme: _toggleTheme),
         '/p5/settings': (context) => PersistentSettingsScreen(onToggleTheme: _toggleTheme),
         '/p5/profile': (context) => StudentProfileScreen(onToggleTheme: _toggleTheme),
+        '/practical6': (context) => Practical6DatabaseHubScreen(onToggleTheme: _toggleTheme),
+        '/p6/hub': (context) => Practical6DatabaseHubScreen(onToggleTheme: _toggleTheme),
+        '/p6/notes': (context) => Practical6DatabaseHubScreen(onToggleTheme: _toggleTheme, initialTabIndex: 0),
+        '/p6/tasks': (context) => Practical6DatabaseHubScreen(onToggleTheme: _toggleTheme, initialTabIndex: 1),
+        '/p6/stats': (context) => Practical6DatabaseHubScreen(onToggleTheme: _toggleTheme, initialTabIndex: 2),
         '/practical4': (context) => Practical4HubScreen(onToggleTheme: _toggleTheme),
         '/p4/profile': (context) => StudentProfileSettingsScreen(onToggleTheme: _toggleTheme),
         '/p4/theme': (context) => ThemeSettingsScreen(onToggleTheme: _toggleTheme),
