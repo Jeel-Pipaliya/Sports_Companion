@@ -225,6 +225,14 @@ class AppNavigationDrawer extends StatelessWidget {
                 ),
                 _buildDrawerTile(
                   context: context,
+                  icon: Icons.cloud_sync_outlined,
+                  activeIcon: Icons.cloud_sync_rounded,
+                  title: 'Practical 7 REST API',
+                  subtitle: 'HTTP GET / POST Feeds',
+                  route: '/practical7',
+                ),
+                _buildDrawerTile(
+                  context: context,
                   icon: Icons.settings_outlined,
                   activeIcon: Icons.settings,
                   title: 'Persistent Settings',

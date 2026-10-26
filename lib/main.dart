@@ -26,6 +26,7 @@ import 'practical4_state_management.dart';
 import 'preferences_service.dart';
 import 'practical5_navigation.dart';
 import 'practical6_database.dart';
+import 'practical7_api.dart';
 
 // Export all modules so that tests and external files have full access
 export 'splash.dart';
@@ -45,6 +46,8 @@ export 'navigation_widgets.dart';
 export 'practical5_navigation.dart';
 export 'database_helper.dart';
 export 'practical6_database.dart';
+export 'api_service.dart';
+export 'practical7_api.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -284,6 +287,39 @@ class _SportsCompanionAppState extends State<SportsCompanionApp> {
               builder: (_) => Practical6DatabaseHubScreen(
                 onToggleTheme: _toggleTheme,
                 initialTabIndex: 2,
+              ),
+            );
+          case '/practical7':
+          case '/p7/hub':
+            return MaterialPageRoute(
+              builder: (_) => Practical7ApiHubScreen(onToggleTheme: _toggleTheme),
+            );
+          case '/p7/notices':
+            return MaterialPageRoute(
+              builder: (_) => Practical7ApiHubScreen(
+                onToggleTheme: _toggleTheme,
+                initialTabIndex: 0,
+              ),
+            );
+          case '/p7/events':
+            return MaterialPageRoute(
+              builder: (_) => Practical7ApiHubScreen(
+                onToggleTheme: _toggleTheme,
+                initialTabIndex: 1,
+              ),
+            );
+          case '/p7/post':
+            return MaterialPageRoute(
+              builder: (_) => Practical7ApiHubScreen(
+                onToggleTheme: _toggleTheme,
+                initialTabIndex: 2,
+              ),
+            );
+          case '/p7/docs':
+            return MaterialPageRoute(
+              builder: (_) => Practical7ApiHubScreen(
+                onToggleTheme: _toggleTheme,
+                initialTabIndex: 3,
               ),
             );
           case '/settings':
